@@ -88,9 +88,9 @@ namespace Estimate_PI
                 for (int i = 0; i < randomPoints; i++)
                 {
                     int randX = random.Next(
-                    canvasWidthCenter,
-                    Convert.ToInt32(canvasWidthCenter + circleRadius)
-                );
+                        canvasWidthCenter,
+                        Convert.ToInt32(canvasWidthCenter + circleRadius)
+                    );
                     int randY = random.Next(
                         Convert.ToInt32(canvasHeightCenter - circleRadius),
                         canvasHeightCenter
