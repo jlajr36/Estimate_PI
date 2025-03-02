@@ -16,6 +16,7 @@ namespace Estimate_PI
         bool paint = false;
         private SKPoint circleCenter = new SKPoint(0, 0);
         private float circleRadius = 225;
+        private int randomPoints = 100000;
 
         public Form1()
         {
@@ -79,6 +80,27 @@ namespace Estimate_PI
                     linePaint.StrokeWidth = 1;
                     linePaint.IsAntialias = true;
                     canvas.DrawLine(circleCenter.X, 0, circleCenter.X, skglCanvas.Size.Height, linePaint);
+                }
+
+                //Draw and track random pixels.
+                Random random = new Random();
+
+                for (int i = 0; i < randomPoints; i++)
+                {
+                    int randX = random.Next(
+                    canvasWidthCenter,
+                    Convert.ToInt32(canvasWidthCenter + circleRadius)
+                );
+                    int randY = random.Next(
+                        Convert.ToInt32(canvasHeightCenter - circleRadius),
+                        canvasHeightCenter
+                    );
+
+                    using (SKPaint pixelPaint = new SKPaint())
+                    {
+                        pixelPaint.Color = SKColors.Red; // Color of the pixel
+                        canvas.DrawPoint(randX, randY, pixelPaint);
+                    }
                 }
 
                 paint = false;
