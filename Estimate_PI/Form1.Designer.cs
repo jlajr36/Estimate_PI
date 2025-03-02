@@ -37,14 +37,14 @@
             this.skglCanvas.BackColor = System.Drawing.Color.Black;
             this.skglCanvas.Location = new System.Drawing.Point(12, 12);
             this.skglCanvas.Name = "skglCanvas";
-            this.skglCanvas.Size = new System.Drawing.Size(677, 426);
+            this.skglCanvas.Size = new System.Drawing.Size(700, 500);
             this.skglCanvas.TabIndex = 0;
             this.skglCanvas.VSync = false;
             this.skglCanvas.PaintSurface += new System.EventHandler<SkiaSharp.Views.Desktop.SKPaintGLSurfaceEventArgs>(this.skglCanvas_PaintSurface);
             // 
             // btnEst
             // 
-            this.btnEst.Location = new System.Drawing.Point(698, 12);
+            this.btnEst.Location = new System.Drawing.Point(732, 12);
             this.btnEst.Name = "btnEst";
             this.btnEst.Size = new System.Drawing.Size(93, 23);
             this.btnEst.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(836, 528);
             this.Controls.Add(this.btnEst);
             this.Controls.Add(this.skglCanvas);
             this.Name = "Form1";
