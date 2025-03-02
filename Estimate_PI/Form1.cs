@@ -9,7 +9,6 @@ namespace Estimate_PI
         bool paint = false;
         private SKPoint circleCenter = new SKPoint(0, 0);
         private float circleRadius = 225;
-        private int randomPoints = 100000;
 
         public Form1()
         {
@@ -23,6 +22,8 @@ namespace Estimate_PI
         {
             if (paint)
             {
+                int randomPoints = Convert.ToInt32(numPoints.Value);
+
                 SKSurface surface = e.Surface;
                 SKCanvas canvas = surface.Canvas;
                 canvas.Clear(SKColor.Parse("#003366"));
@@ -99,6 +100,7 @@ namespace Estimate_PI
                 }
 
                 //Draw and track random pixels.
+                int circleCount = 0;
 
                 using (SKPaint insideCirclePaint = new SKPaint { Color = SKColors.Red })
                 using (SKPaint outsideCirclePaint = new SKPaint { Color = SKColors.Green })
@@ -122,12 +124,15 @@ namespace Estimate_PI
 
                         if (distanceSquared < radiusSquared)
                         {
+                            circleCount++;
                             canvas.DrawPoint(randX, randY, insideCirclePaint);
                         } else {
                             canvas.DrawPoint(randX, randY, outsideCirclePaint);
                         }
                     }
                 }
+                double pi = (4 * (double)circleCount) / (double)randomPoints;
+                txtPi.Text = pi.ToString();
 
                 paint = false;
             }
