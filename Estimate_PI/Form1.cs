@@ -1,12 +1,5 @@
 ﻿using SkiaSharp;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Estimate_PI
@@ -51,7 +44,13 @@ namespace Estimate_PI
                     float top = circleCenter.Y - circleRadius;
                     float right = circleCenter.X + circleRadius;
                     float bottom = circleCenter.Y + circleRadius;
-                    canvas.DrawRect(left, top, squareSize, squareSize, squarePaint);
+                    canvas.DrawRect(
+                        left,
+                        top,
+                        squareSize,
+                        squareSize,
+                        squarePaint
+                    );
                 }
 
                 // Draw the circle
@@ -61,7 +60,12 @@ namespace Estimate_PI
                     circlePaint.StrokeWidth = 1;
                     circlePaint.IsAntialias = true;
                     circlePaint.Style = SKPaintStyle.Stroke;
-                    canvas.DrawCircle(circleCenter.X, circleCenter.Y, circleRadius, circlePaint);
+                    canvas.DrawCircle(
+                        circleCenter.X,
+                        circleCenter.Y,
+                        circleRadius,
+                        circlePaint
+                    );
                 }
 
                 // Draw horizontal line
@@ -70,7 +74,13 @@ namespace Estimate_PI
                     linePaint.Color = SKColors.White;
                     linePaint.StrokeWidth = 1;
                     linePaint.IsAntialias = true;
-                    canvas.DrawLine(0, circleCenter.Y, skglCanvas.Size.Width, circleCenter.Y, linePaint);
+                    canvas.DrawLine(
+                        0,
+                        circleCenter.Y,
+                        skglCanvas.Size.Width,
+                        circleCenter.Y,
+                        linePaint
+                    );
                 }
 
                 // Draw vertical line
@@ -79,27 +89,43 @@ namespace Estimate_PI
                     linePaint.Color = SKColors.White;
                     linePaint.StrokeWidth = 1;
                     linePaint.IsAntialias = true;
-                    canvas.DrawLine(circleCenter.X, 0, circleCenter.X, skglCanvas.Size.Height, linePaint);
+                    canvas.DrawLine(
+                        circleCenter.X,
+                        0,
+                        circleCenter.X,
+                        skglCanvas.Size.Height,
+                        linePaint
+                    );
                 }
 
                 //Draw and track random pixels.
-                Random random = new Random();
 
-                for (int i = 0; i < randomPoints; i++)
+                using (SKPaint insideCirclePaint = new SKPaint { Color = SKColors.Red })
+                using (SKPaint outsideCirclePaint = new SKPaint { Color = SKColors.Green })
                 {
-                    int randX = random.Next(
-                        canvasWidthCenter,
-                        Convert.ToInt32(canvasWidthCenter + circleRadius)
-                    );
-                    int randY = random.Next(
-                        Convert.ToInt32(canvasHeightCenter - circleRadius),
-                        canvasHeightCenter
-                    );
+                    Random random = new Random();
 
-                    using (SKPaint pixelPaint = new SKPaint())
+                    for (int i = 0; i < randomPoints; i++)
                     {
-                        pixelPaint.Color = SKColors.Red; // Color of the pixel
-                        canvas.DrawPoint(randX, randY, pixelPaint);
+                        int randX = random.Next(
+                            canvasWidthCenter,
+                            Convert.ToInt32(canvasWidthCenter + circleRadius)
+                        );
+                        int randY = random.Next(
+                            Convert.ToInt32(canvasHeightCenter - circleRadius),
+                            canvasHeightCenter
+                        );
+                        double distanceSquared =
+                            (randX - circleCenter.X) * (randX - circleCenter.X) +
+                            (randY - circleCenter.Y) * (randY - circleCenter.Y);
+                        double radiusSquared = circleRadius * circleRadius;
+
+                        if (distanceSquared < radiusSquared)
+                        {
+                            canvas.DrawPoint(randX, randY, insideCirclePaint);
+                        } else {
+                            canvas.DrawPoint(randX, randY, outsideCirclePaint);
+                        }
                     }
                 }
 
